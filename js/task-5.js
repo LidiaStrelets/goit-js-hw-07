@@ -4,5 +4,10 @@ const refs = {
 };
 
 refs.input.addEventListener('input', event => {
-  refs.name.textContent = event.currentTarget.value;
+  if (event.currentTarget.value === '') {
+    console.log('you');
+    refs.name.textContent = 'незнакомец';
+  } else {
+    refs.name.textContent = event.currentTarget.value;
+  }
 });

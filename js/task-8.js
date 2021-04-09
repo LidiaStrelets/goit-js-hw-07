@@ -4,7 +4,7 @@ const refs = {
   clearBtn: document.querySelector('[data-action="destroy"]'),
   boxes: document.querySelector('#boxes'),
 };
-// console.log(refs);
+
 function randomInteger(min, max) {
   let rand = min - 0.5 + Math.random() * (max - min + 1);
   return Math.round(rand);
@@ -29,17 +29,24 @@ const createBoxes = amount => {
   refs.boxes.append(...elements);
 };
 const destroyBoxes = () => {
-  console.log('destroy this', refs.boxes.innerHTML);
   refs.boxes.innerHTML = '';
 };
 
-refs.createBtn.addEventListener('click', event => {
-  const userInput = refs.amount.value;
-  //   console.log('userInput', userInput);
+refs.createBtn.addEventListener('click', () => {
+  let userInput = refs.amount.value;
   createBoxes(refs.amount.value);
-  console.log(refs.boxes.height);
+  refs.amount.value = 0;
 });
 
-refs.clearBtn.addEventListener('click', event => {
+refs.clearBtn.addEventListener('click', () => {
   destroyBoxes();
+});
+
+refs.amount.addEventListener('input', event => {
+  window.addEventListener('keydown', event => {
+    if (event.code === 'Enter') {
+      const userInput = refs.amount.value;
+      createBoxes(userInput);
+    }
+  });
 });
