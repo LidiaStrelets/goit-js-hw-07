@@ -7,7 +7,7 @@ console.log(refs);
 let currentValue = refs.value.textContent;
 console.log(currentValue);
 
-const increaseCounter = value => (value += 1);
+const increaseCounter = value => (value = Number(value) + 1);
 const decreaseCounter = value => (value -= 1);
 
 refs.decrementBtn.addEventListener('click', () => {
