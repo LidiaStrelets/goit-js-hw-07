@@ -9,11 +9,24 @@ function randomInteger(min, max) {
   let rand = min - 0.5 + Math.random() * (max - min + 1);
   return Math.round(rand);
 }
+
 const createBoxes = amount => {
   const elements = [];
-  let boxWidth = 30;
-  let boxHeight = 30;
-  for (let i = 0; i < amount; i += 1) {
+  elements.length = amount;
+  elements.fill(1);
+  let boxWidth;
+  let boxHeight;
+  if (boxes.innerHTML === '') {
+    boxWidth = 30;
+    boxHeight = 30;
+  } else {
+    const stringWidth = boxes.lastElementChild.style.width;
+    const stringHeight = boxes.lastElementChild.style.height;
+    boxWidth = Number(stringWidth.slice(0, stringWidth.length - 2)) + 10;
+    boxHeight = Number(stringHeight.slice(0, stringWidth.length - 2)) + 10;
+  }
+
+  const markup = elements.map((item, index, array) => {
     const el = document.createElement('div');
     el.classList.add('box');
     el.style.backgroundColor = `rgb(${randomInteger(0, 255)}, ${randomInteger(
@@ -24,9 +37,10 @@ const createBoxes = amount => {
     boxWidth += 10;
     el.style.height = `${boxHeight}px`;
     boxHeight += 10;
-    elements.push(el);
-  }
-  refs.boxes.append(...elements);
+    return el;
+  });
+
+  refs.boxes.append(...markup);
 };
 const destroyBoxes = () => {
   refs.boxes.innerHTML = '';
